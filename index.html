@@ -4,16 +4,13 @@
     <title>Angular</title>
     <link href="content/css/styles.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="app/lib/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
     <script type="text/javascript" src="app/app.js"></script>
   </head>
   <body>
-    <div ng-controller="myController">
-      <input type="text" ng-model="search" />
-      <ul>
-        <li ng-repeat="x in names | orderBy: name | filter: search">
-          {{ x.name }} - {{ x.rate | currency: "£" }}
-        </li>
-      </ul>
-    </div>
+    <header ng-include="'header.html'"></header>
+    <main ng-view=""></main>
   </body>
 </html>
