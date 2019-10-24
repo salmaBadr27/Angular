@@ -22,14 +22,15 @@ myApp.config([
 //controller which wraps all functionality of our view or main view
 myApp.controller("myController", [
   "$scope",
-  function($scope) {
-    //remove new item
+  "$http",
+  function($scope, $http) {
+    //Remove new item
     $scope.removeItem = function(item) {
       var removedItem = $scope.items.indexOf(item);
       $scope.items.splice(removedItem, 1);
     };
 
-    //add an item
+    //Add an item
     $scope.addItem = function() {
       $scope.items.push({
         name: $scope.item.name,
@@ -53,35 +54,18 @@ myApp.controller("myController", [
       $scope.item.periority.title = "";
     };
 
-    //temporary data
-    $scope.items = [
-      {
-        name: "Eat",
-        avilable: true,
-        periority: {
-          title: "medium",
-          color: "green"
-        },
-        no: 2
+    //access to data ("View all Items")
+    $http({
+      method: "GET",
+      url: "data/data.json"
+    }).then(
+      function(data) {
+        $scope.items = data.data;
+        console.log(data);
       },
-      {
-        name: "love",
-        avilable: true,
-        periority: {
-          title: "low",
-          color: "yellow"
-        },
-        no: 3
-      },
-      {
-        name: "pray",
-        avilable: true,
-        periority: {
-          title: "high",
-          color: "red"
-        },
-        no: 1
+      function(error) {
+        console.log("Error:", error);
       }
-    ];
+    );
   }
 ]);
